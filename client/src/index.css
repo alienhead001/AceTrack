@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(217, 87%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(159, 94%, 40%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(39, 93%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --success: hsl(158, 64%, 52%);
+  --success-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* Tennis academy theme colors */
+  --tennis-primary: hsl(217, 87%, 54%);
+  --tennis-secondary: hsl(159, 94%, 40%);
+  --tennis-accent: hsl(39, 93%, 50%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(217, 87%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .custom-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .floating-action {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 50;
+  }
+  
+  .slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.2s ease-in;
+  }
+  
+  .tennis-gradient {
+    background: linear-gradient(135deg, var(--tennis-primary), var(--tennis-secondary));
+  }
+}
+
+@keyframes slideIn {
+  from { 
+    transform: translateX(100%); 
+  }
+  to { 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+  }
+  to { 
+    opacity: 1; 
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
+
+/* Loading spinner */
+.loading-spinner {
+  @apply animate-spin rounded-full border-2 border-gray-200;
+  border-top-color: hsl(var(--primary));
+}
+
+/* Tennis court inspired design elements */
+.court-lines {
+  position: relative;
+}
+
+.court-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, transparent 49%, hsl(var(--border)) 49%, hsl(var(--border)) 51%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, hsl(var(--border)) 49%, hsl(var(--border)) 51%, transparent 51%);
+  background-size: 20px 20px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Skill level indicators */
+.skill-indicator {
+  @apply relative inline-block w-full h-2 bg-gray-200 rounded-full overflow-hidden;
+}
+
+.skill-indicator::after {
+  content: '';
+  @apply absolute left-0 top-0 h-full rounded-full transition-all duration-300;
+  background: linear-gradient(90deg, hsl(var(--destructive)), hsl(var(--accent)), hsl(var(--success)));
+}
+
+.skill-indicator[data-level="1"]::after { width: 10%; }
+.skill-indicator[data-level="2"]::after { width: 20%; }
+.skill-indicator[data-level="3"]::after { width: 30%; }
+.skill-indicator[data-level="4"]::after { width: 40%; }
+.skill-indicator[data-level="5"]::after { width: 50%; }
+.skill-indicator[data-level="6"]::after { width: 60%; }
+.skill-indicator[data-level="7"]::after { width: 70%; }
+.skill-indicator[data-level="8"]::after { width: 80%; }
+.skill-indicator[data-level="9"]::after { width: 90%; }
+.skill-indicator[data-level="10"]::after { width: 100%; }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .mobile-optimized {
+    @apply text-base leading-relaxed;
+  }
+  
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .mobile-spacing {
+    @apply p-4 space-y-4;
+  }
+}
+
+/* Status indicators */
+.status-active {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300;
+}
+
+.status-inactive {
+  @apply bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-300;
+}
+
+.status-at-risk {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300;
+}
+
+/* AI loading animation */
+.ai-thinking {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.ai-thinking::after {
+  content: '●●●';
+  animation: dots 1.5s steps(4) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '●'; }
+  40% { content: '●●'; }
+  60%, 100% { content: '●●●'; }
+}
